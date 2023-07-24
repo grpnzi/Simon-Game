@@ -5,8 +5,8 @@ class Game {
     constructor() {
         this.round = 0;
         this.gameScreen = document.getElementById("game-screen");
-        this.board = new Board()
         this.startScreen = document.getElementById("game-intro");
+        this.board = new Board()
         this.clickCount = 0;
         this.gameIsOver = false;
         // this.gameEndScreen = document.getElementById("game-end");
@@ -25,22 +25,26 @@ class Game {
 
     gameLoop() {
         console.log('GAME LOOP STARTED');
-        this.gameIsOver = this.board.lose();
+        
+        setTimeout(() => {
+            if (!this.board.generatingSequence) {
+                this.gameIsOver = true; 
+                this.end();
+                return;
+            }
+        }, 5000);
 
-        if (this.gameIsOver) {
-            console.log('The game is over');
-            this.end();
-            return;
-        }
 
         // This function it's calling itself in a loop
         window.requestAnimationFrame(() => this.gameLoop())
     }
 
     end() {
-        // Hide the game screen
-        this.startScreen.style.display = "none";
+        console.log("Showing end");
+        this.gameScreen.style.display = "none";
         // Display the starter screen
-        this.gameScreen.style.display = "block";
+        this.startScreen.style.display = "block";
+
+        this.board.reset();
     }
 }

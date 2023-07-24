@@ -1,3 +1,4 @@
+//  script js
 window.onload = function () {
     console.log('SCRIPT JS IS WORKING');
     const startButton = document.getElementById("start-button");

@@ -99,7 +99,7 @@ class Board {
     
                     } 
 
-                } else {
+                } else if (event.target.id !== this.randomColors[this.clickCount]) {
                     this.lose();
                 }
             })
@@ -108,5 +108,12 @@ class Board {
 
     lose() {
         return true;
+    }
+
+    reset() {
+        this.randomColors = [];
+        this.clickCount = 0;
+        this.round = 0;
+        this.generatingSequence = false;
     }
 }
