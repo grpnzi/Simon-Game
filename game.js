@@ -6,13 +6,16 @@ class Game {
         this.gameScreen = document.getElementById("game-screen");
         this.player = null
         this.startScreen = document.getElementById("game-intro");
-        this.score = 0;
+        this.count = 0;
+        this.clickCount = 0;
+        this.round = 0;
         this.gameIsOver = false;
         // this.gameEndScreen = document.getElementById("game-end");
     }
 
     start() {
         //Hide the starter screen
+        console.log(this.gameScreen);
         this.startScreen.style.display = "none";
         // display the game screen
         this.gameScreen.style.display = "block";
@@ -33,7 +36,5 @@ class Game {
     }
 
     update() {
-        console.log('Update method');
-        this.player.move();
     }
 }

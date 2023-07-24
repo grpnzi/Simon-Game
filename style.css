@@ -9,7 +9,7 @@ body {
     font-weight: bolder;
 }
 
-.game-intro {
+#game-intro {
     position: absolute;
     background-color: aliceblue;
     height: 30em;
@@ -53,7 +53,7 @@ body {
     border: black solid 2px;
 }
 
-.game-screen {
+#game-screen {
     position: absolute;
     background-color: aliceblue;
     height: 40em;
