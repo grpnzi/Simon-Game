@@ -2,7 +2,7 @@
 console.log('BOARD JS IS WORKING');
 class Board {
 
-    constructor() {
+    constructor(round) {
         this.colors = {
             color1: {
               current: "#026402",
@@ -25,8 +25,10 @@ class Board {
         this.randomColors = [];
         this.countValue = document.getElementById("count");
         this.colorPart = document.querySelectorAll(".color-part");
+        // generatingSequence is used to indicate whether the color sequence is being generated (true) or whether the user should click on the colors (false).
         this.generatingSequence = false;
         this.clickCount = 0;
+        this.round = round
     }
 
     //Function to get a random value from object
@@ -35,39 +37,76 @@ class Board {
         return arr[Math.floor(Math.random() * arr.length)];
     };
 
-    sequenceGenerator(round) {
-        for (let j = 0; j < round + 4; j++) {
-            this.randomColors.push(this.generateRandomValue(this.colors));
-            this.generatingSequence = true;
-        }
+    //Function to decide the sequence for each itiration de length of the randomColors grows by 1 
+    sequenceGenerator() {
+        this.randomColors.push(this.generateRandomValue(this.colors));
+        this.round = this.randomColors.length;
+        this.generatingSequence = true;
+        this.pathDecide(this.round);
     };
 
+    wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     //Function to play the sequence
-    async pathDecide (round) {
-        this.countValue.innerText = round;
-
-
-        function wait(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
+    async pathDecide () {
+        this.countValue.innerText = this.round;
 
         for (let i of this.randomColors) {
             let currentColor = document.querySelector(`#${i}`);
+            await this.wait(500);
             currentColor.style.backgroundColor = `${this.colors[i]["new"]}`;
-            await wait(1000); 
+            await this.wait(400);
             currentColor.style.backgroundColor = `${this.colors[i]["current"]}`;
-            await wait(1000);
+            await this.wait(600);
         }
+    
         this.generatingSequence = false;
     };
 
-    start(round) {
-        this.sequenceGenerator(round);
-        this.pathDecide(round);
+    start() {
+        this.sequenceGenerator(this.round);
+        this.checkUserPatern()
         console.log(this.randomColors);
     }
 
-    checkUserPatern() {
-        
+    async checkUserPatern() {
+        this.colorPart.forEach((element) => {
+            console.log(element);
+            element.addEventListener("click", async (event) => {
+            //if user clicks the same color then next level
+                if (this.generatingSequence) {
+                    return false;
+                }
+
+                if (event.target.id == this.randomColors[this.clickCount]) {
+                    //Color blick effect on click
+                    event.target.style.backgroundColor = `${
+                    this.colors[this.randomColors[this.clickCount]]["new"]
+                    }`;
+                    await this.wait(500);
+                    event.target.style.backgroundColor = `${
+                    this.colors[this.randomColors[this.clickCount]]["current"]
+                    }`;
+                    //User click
+                    this.clickCount += 1;
+                    //Next level if number of valid clicks == round
+
+                    if (this.clickCount == this.round) {
+                        this.clickCount = 0;
+                        this.sequenceGenerator();
+    
+                    } 
+
+                } else {
+                    this.lose();
+                }
+            })
+        })
+    }
+
+    lose() {
+        return true;
     }
 }
