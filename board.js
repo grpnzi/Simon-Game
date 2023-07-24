@@ -24,6 +24,9 @@ class Board {
 
         this.randomColors = [];
         this.countValue = document.getElementById("count");
+        this.colorPart = document.querySelectorAll(".color-part");
+        this.generatingSequence = false;
+        this.clickCount = 0;
     }
 
     //Function to get a random value from object
@@ -33,24 +36,38 @@ class Board {
     };
 
     sequenceGenerator(round) {
-        for (let j = 0; j <= round + 4; j++) {
+        for (let j = 0; j < round + 4; j++) {
             this.randomColors.push(this.generateRandomValue(this.colors));
+            this.generatingSequence = true;
         }
     };
 
     //Function to play the sequence
-    pathDecide (round) {
+    async pathDecide (round) {
         this.countValue.innerText = round;
+
+
+        function wait(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
         for (let i of this.randomColors) {
             let currentColor = document.querySelector(`#${i}`);
             currentColor.style.backgroundColor = `${this.colors[i]["new"]}`;
+            await wait(1000); 
             currentColor.style.backgroundColor = `${this.colors[i]["current"]}`;
+            await wait(1000);
         }
-
+        this.generatingSequence = false;
     };
 
     start(round) {
         this.sequenceGenerator(round);
         this.pathDecide(round);
+        console.log(this.randomColors);
+    }
+
+    checkUserPatern() {
+        
     }
 }
