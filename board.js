@@ -2,7 +2,7 @@
 console.log('BOARD JS IS WORKING');
 class Board {
 
-    constructor(count, clickCount, round) {
+    constructor() {
         this.colors = {
             color1: {
               current: "#026402",
@@ -21,13 +21,10 @@ class Board {
               new: "#fafa18",
             },
         };
-        this.count = count;
-        this.clickCount = clickCount;
-        this.round = round;
-        this.sequenceGeneratorBool = false;
-        this.randomColors = [];
-    }
 
+        this.randomColors = [];
+        this.countValue = document.getElementById("count");
+    }
 
     //Function to get a random value from object
     generateRandomValue(object) {
@@ -35,25 +32,25 @@ class Board {
         return arr[Math.floor(Math.random() * arr.length)];
     };
 
-    sequenceGenerator() {
-        randomColors.push(generateRandomValue(colors));
-        count = randomColors.length;
-        sequenceGeneratorBool = true;
-        pathDecide(count);
+    sequenceGenerator(round) {
+        for (let j = 0; j <= round + 4; j++) {
+            this.randomColors.push(this.generateRandomValue(this.colors));
+        }
     };
 
     //Function to play the sequence
-    async pathDecide (count) {
-        countValue.innerText = count;
-        for (let i of randomColors) {
-            let currentColor = document.querySelector(`.${i}`);
-            await delay(500);
-            currentColor.style.backgroundColor = `${colors[i]["new"]}`;
-            await delay(600);
-            currentColor.style.backgroundColor = `${colors[i]["current"]}`;
-            await delay(600);
+    pathDecide (round) {
+        this.countValue.innerText = round;
+        for (let i of this.randomColors) {
+            let currentColor = document.querySelector(`#${i}`);
+            currentColor.style.backgroundColor = `${this.colors[i]["new"]}`;
+            currentColor.style.backgroundColor = `${this.colors[i]["current"]}`;
         }
-        pathGeneratorBool = false;
+
     };
-      
+
+    start(round) {
+        this.sequenceGenerator(round);
+        this.pathDecide(round);
+    }
 }
