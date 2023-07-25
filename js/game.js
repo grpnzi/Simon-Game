@@ -23,12 +23,14 @@ class Game {
     }
 
     gameLoop() {
-        // console.log('GAME LOOP STARTED');
-
-        this.update();
+        console.log(this.board.gameIsOver);
 
         // This function it's calling itself in a loop
-        window.requestAnimationFrame(() => this.gameLoop())
+        if (!this.board.gameIsOver) {
+            window.requestAnimationFrame(() => this.gameLoop())
+            this.update();
+        }
+ 
     }
 
     update() {
@@ -42,13 +44,13 @@ class Game {
 
     end() {
         console.log("Showing end");
-        this.gameIsOver = false
 
         this.gameScreen.style.display = "none";
         // Display the starter screen
         this.startScreen.style.display = "block";
 
         this.board.reset();
+
 
     }
 }
