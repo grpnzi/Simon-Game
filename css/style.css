@@ -141,3 +141,13 @@ body {
     place-items: center;
     border-radius: 0.3em;
 }
+
+@media screen and (max-width: 600px) {
+    body {
+      font-size: 10px;
+    }
+    .wrapper {
+      height: 35em;
+      width: 35em;
+    }
+}

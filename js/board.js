@@ -29,7 +29,9 @@ class Board {
         // generatingSequence is used to indicate whether the color sequence is being generated (true) or whether the user should click on the colors (false).
         this.generatingSequence = false;
         this.clickCount = 0;
-        this.round = round
+        this.round = round;
+        this.gameIsOver = false;
+        this.sounds = new Sounds();
     }
 
     //Function to get a random value from object
@@ -57,10 +59,14 @@ class Board {
         for (let i of this.randomColors) {
             let currentColor = document.querySelector(`#${i}`);
             await this.wait(500);
+
+            // Play the sound associated with the color before changing the background color
+            this.sounds.play(this.sounds[i]);
+
             currentColor.style.backgroundColor = `${this.colors[i]["new"]}`;
-            await this.wait(400);
+            await this.wait(500);
             currentColor.style.backgroundColor = `${this.colors[i]["current"]}`;
-            await this.wait(600);
+            await this.wait(500);
         }
     
         this.generatingSequence = false;
@@ -69,60 +75,26 @@ class Board {
     start() {
         this.sequenceGenerator(this.round);
         this.clickScanner();
-        // this.checkUserPatern()
 
     }
 
-    // function to check if the user is playing the correct sequence
-    // async checkUserPatern() {
-    //     this.colorPart.forEach((element) => {
-  
-    //         element.addEventListener("click", async (event) => {
-    //         //if the sequence is running, return
-    //             if (this.generatingSequence) {
-    //                 return false;
-    //             }
-
-    //             // if the color sequence match with de user click sequence
-    //             if (event.target.id == this.randomColors[this.clickCount]) {
-    //                 //Color blick effect on click
-    //                 event.target.style.backgroundColor = `${
-    //                 this.colors[this.randomColors[this.clickCount]]["new"]
-    //                 }`;
-    //                 await this.wait(500);
-    //                 event.target.style.backgroundColor = `${
-    //                 this.colors[this.randomColors[this.clickCount]]["current"]
-    //                 }`;
-    //                 //User click
-    //                 this.clickCount += 1;
-
-    //                 //Next level if number of valid clicks == round
-    //                 if (this.clickCount == this.round) {
-    //                     this.clickCount = 0;
-    //                     this.clickSequence = []
-    //                     this.sequenceGenerator();
-    
-    //                 } 
-    //             // finish the game
-    //             } else { // if (event.target.id !== this.randomColors[this.clickCount]) {
-    //                 this.lose();
-    //                 console.log("Wrong answer");
-    //             }
-    //         })
-    //     })
-    // }
     async clickScanner() {
         if (this.generatingSequence) return false;
 
         if (!this.clickSequence.length) return false;
 
+        if (this.generatingSequence || this.clickCount >= this.clickSequence.length) return false;
+
         if (this.clickSequence[this.clickCount].id == this.randomColors[this.clickCount]) {
+            // Play the sound associated with the color
+            let sound = this.clickSequence[this.clickCount].id;
+            this.sounds.play(this.sounds[sound]);
             //Color blick effect on click
+            
             this.clickSequence[this.clickCount].style.backgroundColor = `${
             this.colors[this.randomColors[this.clickCount]]["new"]
             }`;
-            await this.wait(500);
-            console.log(this.clickSequence[this.clickCount]);
+            await this.wait(500); // set interval
             this.clickSequence[this.clickCount].style.backgroundColor = `${
             this.colors[this.randomColors[this.clickCount]]["current"]
             }`;
@@ -134,9 +106,12 @@ class Board {
                 this.clickCount = 0;
                 this.clickSequence = []
                 this.sequenceGenerator();
+                this.sounds.play(this.sounds.success);
             }
+
         } else {
-            return true
+            this.gameIsOver = true;
+            this.sounds.play(this.sounds.gameOver);
         }
     }
 
@@ -146,5 +121,6 @@ class Board {
         this.clickCount = 0;
         this.round = 0;
         this.generatingSequence = false;
+        this.gameIsOver = false;
     }
 }

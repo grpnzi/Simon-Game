@@ -7,6 +7,7 @@ window.onload = function () {
   let game;
 
   startButton.addEventListener("click", function () {
+    console.log("starting game");
     startGame();
   });
   
@@ -18,7 +19,6 @@ window.onload = function () {
 
   function handleMouseInput(click) {
     game.board.clickSequence.push(click.target);
-    console.log(game.board.clickSequence);
     
   }
   

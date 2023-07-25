@@ -6,8 +6,7 @@ class Game {
         this.round = 0;
         this.gameScreen = document.getElementById("game-screen");
         this.startScreen = document.getElementById("game-intro");
-        this.board = new Board()
-        this.clickCount = 0;
+        this.board = new Board(this.round)
         this.gameIsOver = false;
         // this.gameEndScreen = document.getElementById("game-end");
     }
@@ -25,17 +24,8 @@ class Game {
 
     gameLoop() {
         // console.log('GAME LOOP STARTED');
-        
-        // setTimeout(() => {
-        //     if (!this.board.generatingSequence) {
-        //         this.gameIsOver = true; 
-        //         this.end();
-        //         return;
-        //     }
-        // }, 5000);
 
         this.update();
-
 
         // This function it's calling itself in a loop
         window.requestAnimationFrame(() => this.gameLoop())
@@ -43,8 +33,11 @@ class Game {
 
     update() {
         // console.log('Update method');
-
         this.board.clickScanner();
+
+        if (this.board.gameIsOver) {
+            this.end();
+        }
     }
 
     end() {
@@ -56,5 +49,6 @@ class Game {
         this.startScreen.style.display = "block";
 
         this.board.reset();
+
     }
 }
