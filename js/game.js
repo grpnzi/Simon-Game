@@ -24,23 +24,33 @@ class Game {
     }
 
     gameLoop() {
-        console.log('GAME LOOP STARTED');
+        // console.log('GAME LOOP STARTED');
         
-        setTimeout(() => {
-            if (!this.board.generatingSequence) {
-                this.gameIsOver = true; 
-                this.end();
-                return;
-            }
-        }, 5000);
+        // setTimeout(() => {
+        //     if (!this.board.generatingSequence) {
+        //         this.gameIsOver = true; 
+        //         this.end();
+        //         return;
+        //     }
+        // }, 5000);
+
+        this.update();
 
 
         // This function it's calling itself in a loop
         window.requestAnimationFrame(() => this.gameLoop())
     }
 
+    update() {
+        // console.log('Update method');
+
+        this.board.clickScanner();
+    }
+
     end() {
         console.log("Showing end");
+        this.gameIsOver = false
+
         this.gameScreen.style.display = "none";
         // Display the starter screen
         this.startScreen.style.display = "block";

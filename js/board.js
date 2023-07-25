@@ -23,6 +23,7 @@ class Board {
         };
 
         this.randomColors = [];
+        this.clickSequence = [];
         this.countValue = document.getElementById("count");
         this.colorPart = document.querySelectorAll(".color-part");
         // generatingSequence is used to indicate whether the color sequence is being generated (true) or whether the user should click on the colors (false).
@@ -67,49 +68,79 @@ class Board {
 
     start() {
         this.sequenceGenerator(this.round);
-        this.checkUserPatern()
-        console.log(this.randomColors);
+        this.clickScanner();
+        // this.checkUserPatern()
+
     }
 
-    async checkUserPatern() {
-        this.colorPart.forEach((element) => {
-            console.log(element);
-            element.addEventListener("click", async (event) => {
-            //if user clicks the same color then next level
-                if (this.generatingSequence) {
-                    return false;
-                }
+    // function to check if the user is playing the correct sequence
+    // async checkUserPatern() {
+    //     this.colorPart.forEach((element) => {
+  
+    //         element.addEventListener("click", async (event) => {
+    //         //if the sequence is running, return
+    //             if (this.generatingSequence) {
+    //                 return false;
+    //             }
 
-                if (event.target.id == this.randomColors[this.clickCount]) {
-                    //Color blick effect on click
-                    event.target.style.backgroundColor = `${
-                    this.colors[this.randomColors[this.clickCount]]["new"]
-                    }`;
-                    await this.wait(500);
-                    event.target.style.backgroundColor = `${
-                    this.colors[this.randomColors[this.clickCount]]["current"]
-                    }`;
-                    //User click
-                    this.clickCount += 1;
-                    //Next level if number of valid clicks == round
+    //             // if the color sequence match with de user click sequence
+    //             if (event.target.id == this.randomColors[this.clickCount]) {
+    //                 //Color blick effect on click
+    //                 event.target.style.backgroundColor = `${
+    //                 this.colors[this.randomColors[this.clickCount]]["new"]
+    //                 }`;
+    //                 await this.wait(500);
+    //                 event.target.style.backgroundColor = `${
+    //                 this.colors[this.randomColors[this.clickCount]]["current"]
+    //                 }`;
+    //                 //User click
+    //                 this.clickCount += 1;
 
-                    if (this.clickCount == this.round) {
-                        this.clickCount = 0;
-                        this.sequenceGenerator();
+    //                 //Next level if number of valid clicks == round
+    //                 if (this.clickCount == this.round) {
+    //                     this.clickCount = 0;
+    //                     this.clickSequence = []
+    //                     this.sequenceGenerator();
     
-                    } 
+    //                 } 
+    //             // finish the game
+    //             } else { // if (event.target.id !== this.randomColors[this.clickCount]) {
+    //                 this.lose();
+    //                 console.log("Wrong answer");
+    //             }
+    //         })
+    //     })
+    // }
+    async clickScanner() {
+        if (this.generatingSequence) return false;
 
-                } else if (event.target.id !== this.randomColors[this.clickCount]) {
-                    this.lose();
-                }
-            })
-        })
+        if (!this.clickSequence.length) return false;
+
+        if (this.clickSequence[this.clickCount].id == this.randomColors[this.clickCount]) {
+            //Color blick effect on click
+            this.clickSequence[this.clickCount].style.backgroundColor = `${
+            this.colors[this.randomColors[this.clickCount]]["new"]
+            }`;
+            await this.wait(500);
+            console.log(this.clickSequence[this.clickCount]);
+            this.clickSequence[this.clickCount].style.backgroundColor = `${
+            this.colors[this.randomColors[this.clickCount]]["current"]
+            }`;
+            //User click
+            this.clickCount += 1;
+            
+            //Next level if number of valid clicks == round
+            if (this.clickCount == this.round) {
+                this.clickCount = 0;
+                this.clickSequence = []
+                this.sequenceGenerator();
+            }
+        } else {
+            return true
+        }
     }
 
-    lose() {
-        return true;
-    }
-
+    // reset all the games values
     reset() {
         this.randomColors = [];
         this.clickCount = 0;
