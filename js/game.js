@@ -7,12 +7,12 @@ class Game {
         this.gameScreen = document.getElementById("game-screen");
         this.startScreen = document.getElementById("game-intro");
         this.endScreen = document.getElementById("game-end");
-        this.startButton = document.getElementById("start-button");
         this.board = new Board(this.round,difficult)
         this.gameIsOver = false;
     }
 
     start() {
+        this.endScreen.style.display = "none";
         // Hide the starter screen
         this.startScreen.style.display = "none";
         // display the game screen
@@ -45,19 +45,14 @@ class Game {
 
     end() {
         console.log("end game");
+        const score = document.getElementById("score");
 
         this.gameScreen.style.display = "none";
         // Display the starter screen
         this.endScreen.style.display = "block";
-        this.endScreen.innerHTML = `
-        <button id="start-button">Start Game</button>
-        <h1>Your score: ${this.board.round}</h1>`;
 
-        this.startButton.addEventListener("click", function () {
-            console.log("boton mierdoso");
-            this.endScreen.style.display = "none";
-            this.board.reset();
-        });
+        score.innerHTML = `YOUR SCORE: ${this.board.round}`
+
 
     }
 }

@@ -1,7 +1,8 @@
 //  script js
 window.onload = function () {
   console.log('SCRIPT JS IS WORKING');
-  const startButton = document.getElementById("start-button");
+  const startButton = document.getElementsByClassName('start-button');
+  const startButtonArray = Array.from(startButton);
   const easyButton = document.getElementById("easy-button");
   const hardButton = document.getElementById("hard-button");
   const colorPart = document.getElementsByClassName("color-part");
@@ -12,21 +13,27 @@ window.onload = function () {
   let modeSet;
   let game;
 
-  startButton.addEventListener("click", function () {
-    console.log("starting game");
-    startGame();
+  // start the game when the button start is pressed
+  startButtonArray.forEach(element => {
+      element.addEventListener("click", (event) => {
+        console.log("starting game");
+        startGame();
+      })
   });
 
+  // set the difficult level to easy
   easyButton.addEventListener("click", function () {
     console.log("easy mode");
     modeSet = difficult.easy;
   });
 
+  // set the difficult level to hard
   hardButton.addEventListener("click", function () {
     console.log("hard mode");
     modeSet = difficult.hard;
   });
   
+  // starts the game
   function startGame() {
     if (!modeSet) modeSet = difficult.easy;
     game = new Game(modeSet);
@@ -35,7 +42,9 @@ window.onload = function () {
     resetInactivityTimer();
   }
 
+  // detect if you are clicking the colors
   function handleMouseInput(click) {
+    // check if is the sequence is running to not catch any click
     if (game.board.generatingSequence) return;
     game.board.clickSequence.push(click.target);
   
@@ -52,18 +61,19 @@ window.onload = function () {
     });
   });
 
+  // check inactivity
   function resetInactivityTimer() {
     // Clear the previous timeout (if any)
     clearTimeout(inactivityTimeout);
 
-    // Set a new timeout of 5 seconds (5000 milliseconds)
+    // Set a new timeout of 10 seconds
     inactivityTimeout = setTimeout(function () {
-        // This code will be executed when the user is inactive for 5 seconds
-        alert("You have been inactive for 10 seconds.");
+        // This code will be executed when the user is inactive
+        console.log('timeout');
         game.board.gameIsOver = true;
         game.board.sounds.play(game.board.sounds.gameOver);
-        // Perform any action needed for inactivity here.
-    }, 10000);
+  
+    }, 100000);
   }
 
 };

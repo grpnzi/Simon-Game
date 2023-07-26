@@ -10,7 +10,7 @@ h1 {
 }
 
 body {
-    background-color: #2d6bf1;
+    background-color: #c789cd;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: bolder;
 }
@@ -78,7 +78,7 @@ body {
     font-size: 3.5em;
 }
 
-#start-button {
+.start-button {
     position: absolute;
     background-color: rgb(0, 255, 238);
     height: 4em;

@@ -6,19 +6,19 @@ class Board {
         this.colors = {
             color1: {
               current: "#026402",
-              new: "#11e711",
+              new: "#02FF02",
             },
             color2: {
               current: "#971900",
-              new: "#fd2a2a",
+              new: "#FF1900",
             },
             color3: {
               current: "#0b017d",
-              new: "#2062fc",
+              new: "#0B01FF",
             },
             color4: {
               current: "#797d01",
-              new: "#fafa18",
+              new: "#F7FF03",
             },
         };
 
@@ -64,6 +64,7 @@ class Board {
             // Play the sound associated with the color before changing the background color
             this.sounds.play(this.sounds[i]);
 
+            // change the color background waiting x time to execute 
             currentColor.style.backgroundColor = `${this.colors[i]["new"]}`;
             await this.wait(this.difficult);
             currentColor.style.backgroundColor = `${this.colors[i]["current"]}`;
