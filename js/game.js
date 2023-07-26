@@ -2,13 +2,13 @@
 console.log('GAME JS IS WORKING');
 class Game {
 
-    constructor() {
+    constructor(difficult) {
         this.round = 0;
         this.gameScreen = document.getElementById("game-screen");
         this.startScreen = document.getElementById("game-intro");
         this.endScreen = document.getElementById("game-end");
         this.startButton = document.getElementById("start-button");
-        this.board = new Board(this.round)
+        this.board = new Board(this.round,difficult)
         this.gameIsOver = false;
     }
 

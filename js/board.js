@@ -2,7 +2,7 @@
 console.log('BOARD JS IS WORKING');
 class Board {
 
-    constructor(round) {
+    constructor(round, difficult) {
         this.colors = {
             color1: {
               current: "#026402",
@@ -26,12 +26,13 @@ class Board {
         this.clickSequence = [];
         this.countValue = document.getElementById("count");
         this.colorPart = document.querySelectorAll(".color-part");
-        // generatingSequence is used to indicate whether the color sequence is being generated (true) or whether the user should click on the colors (false).
+        // generatingSequence is used to indicate whether the color sequence is being generated (true)
         this.generatingSequence = false;
         this.clickCount = 0;
         this.round = round;
         this.gameIsOver = false;
         this.sounds = new Sounds();
+        this.difficult = difficult;
     }
 
     //Function to get a random value from object
@@ -58,15 +59,15 @@ class Board {
 
         for (let i of this.randomColors) {
             let currentColor = document.querySelector(`#${i}`);
-            await this.wait(500);
+            await this.wait(this.difficult);
 
             // Play the sound associated with the color before changing the background color
             this.sounds.play(this.sounds[i]);
 
             currentColor.style.backgroundColor = `${this.colors[i]["new"]}`;
-            await this.wait(500);
+            await this.wait(this.difficult);
             currentColor.style.backgroundColor = `${this.colors[i]["current"]}`;
-            await this.wait(500);
+            await this.wait(this.difficult);
         }
     
         this.generatingSequence = false;
@@ -79,7 +80,7 @@ class Board {
     }
 
     // check if the player is clicking the correct pattern
-    async clickScanner() {
+    clickScanner() {
         // check if the pattern is beeing showed to the player
         if (this.generatingSequence) return false;
         // check if the player has clicked something
@@ -116,11 +117,10 @@ class Board {
                             }, 1000);
                         }
                     }
-                }, 500);
+                }, 600);
         // ends the game
         } else {
             this.gameIsOver = true;
-            this.sounds.play(this.sounds.gameOver);
         }
     }
 
