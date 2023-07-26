@@ -52,7 +52,7 @@ class Board {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    //Function to play the sequence
+    // Function to play the sequence
     async pathDecide () {
         this.countValue.innerText = this.round;
 
@@ -78,9 +78,11 @@ class Board {
 
     }
 
+    // check if the player is clicking the correct pattern
     async clickScanner() {
+        // check if the pattern is beeing showed to the player
         if (this.generatingSequence) return false;
-
+        // check if the player has clicked something
         if (!this.clickSequence.length) return false;
 
         if (this.generatingSequence || this.clickCount >= this.clickSequence.length) return false;
@@ -91,35 +93,31 @@ class Board {
             this.sounds.play(this.sounds[sound]);
             //Color blick effect on click
             
-            this.clickSequence[this.clickCount].style.backgroundColor = `${
-            this.colors[this.randomColors[this.clickCount]]["new"]
-            }`;
+            this.clickSequence[this.clickCount].style.backgroundColor = `${this.colors[this.randomColors[this.clickCount]]["new"]}`;
 
-            // Using setTimeout for the delay
-            setTimeout(() => {
-                // Reset the color back to the original
-                if (this.clickSequence[this.clickCount]) {
-                    this.clickSequence[this.clickCount].style.backgroundColor = `${
-                    his.colors[this.randomColors[this.clickCount]]["current"]
-                    }`;
+                // Using setTimeout for the delay
+                setTimeout(() => {
+                    // Check if click sequence is not returning undefined
+                    if (this.clickSequence[this.clickCount]) {
+                        this.clickSequence[this.clickCount].style.backgroundColor = `${this.colors[this.randomColors[this.clickCount]]["current"]}`;
         
-                    //User click
-                    this.clickCount += 1;
+                            //User click
+                            this.clickCount += 1;
                             
-                    //Next level if number of valid clicks == round
-                    if (this.clickCount == this.round) {
-                        this.clickCount = 0;
-                        this.clickSequence = []
+                            //Next level if number of valid clicks == round
+                            if (this.clickCount == this.round) {
+                                this.clickCount = 0;
+                                this.clickSequence = []
         
-                        // Using setTimeout for the delay before starting the next round
-                        setTimeout(() => {
-                            this.sequenceGenerator();
-                            this.sounds.play(this.sounds.success);
-                        }, 1000);
+                            // Using setTimeout for the delay before starting the next round
+                            setTimeout(() => {
+                                this.sequenceGenerator();
+                                this.sounds.play(this.sounds.success);
+                            }, 1000);
+                        }
                     }
-                }
-            }, 500);
-
+                }, 500);
+        // ends the game
         } else {
             this.gameIsOver = true;
             this.sounds.play(this.sounds.gameOver);

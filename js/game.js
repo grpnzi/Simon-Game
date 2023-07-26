@@ -6,13 +6,14 @@ class Game {
         this.round = 0;
         this.gameScreen = document.getElementById("game-screen");
         this.startScreen = document.getElementById("game-intro");
+        this.endScreen = document.getElementById("game-end");
+        this.startButton = document.getElementById("start-button");
         this.board = new Board(this.round)
         this.gameIsOver = false;
-        // this.gameEndScreen = document.getElementById("game-end");
     }
 
     start() {
-        //Hide the starter screen
+        // Hide the starter screen
         this.startScreen.style.display = "none";
         // display the game screen
         this.gameScreen.style.display = "block";
@@ -23,7 +24,6 @@ class Game {
     }
 
     gameLoop() {
-        console.log(this.board.gameIsOver);
 
         // This function it's calling itself in a loop
         if (!this.board.gameIsOver) {
@@ -40,17 +40,24 @@ class Game {
         if (this.board.gameIsOver) {
             this.end();
         }
+
     }
 
     end() {
-        console.log("Showing end");
+        console.log("end game");
 
         this.gameScreen.style.display = "none";
         // Display the starter screen
-        this.startScreen.style.display = "block";
+        this.endScreen.style.display = "block";
+        this.endScreen.innerHTML = `
+        <button id="start-button">Start Game</button>
+        <h1>Your score: ${this.board.round}</h1>`;
 
-        this.board.reset();
-
+        this.startButton.addEventListener("click", function () {
+            console.log("boton mierdoso");
+            this.endScreen.style.display = "none";
+            this.board.reset();
+        });
 
     }
 }
