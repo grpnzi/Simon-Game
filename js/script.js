@@ -8,6 +8,7 @@ window.onload = function () {
   const colorPartArray = Array.from(colorPart);
   const difficult = {easy: 500, hard: 150};
 
+  let inactivityTimeout;
   let modeSet;
   let game;
 
@@ -18,7 +19,6 @@ window.onload = function () {
 
   easyButton.addEventListener("click", function () {
     console.log("easy mode");
-    console.log(difficult.easy);
     modeSet = difficult.easy;
   });
 
@@ -32,6 +32,7 @@ window.onload = function () {
     game = new Game(modeSet);
 
     game.start();
+    resetInactivityTimer();
   }
 
   function handleMouseInput(click) {
@@ -46,8 +47,23 @@ window.onload = function () {
       // Check if the clicked element has the class "color-part"
       if (event.target.classList.contains("color-part")) {
         handleMouseInput(event);
+        resetInactivityTimer();
       }
     });
   });
+
+  function resetInactivityTimer() {
+    // Clear the previous timeout (if any)
+    clearTimeout(inactivityTimeout);
+
+    // Set a new timeout of 5 seconds (5000 milliseconds)
+    inactivityTimeout = setTimeout(function () {
+        // This code will be executed when the user is inactive for 5 seconds
+        alert("You have been inactive for 10 seconds.");
+        game.board.gameIsOver = true;
+        game.board.sounds.play(game.board.sounds.gameOver);
+        // Perform any action needed for inactivity here.
+    }, 10000);
+  }
 
 };

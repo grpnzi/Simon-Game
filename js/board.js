@@ -89,9 +89,7 @@ class Board {
         if (this.generatingSequence || this.clickCount >= this.clickSequence.length) return false;
 
         if (this.clickSequence[this.clickCount].id == this.randomColors[this.clickCount]) {
-            // Play the sound associated with the color
-            let sound = this.clickSequence[this.clickCount].id;
-            this.sounds.play(this.sounds[sound]);
+
             //Color blick effect on click
             
             this.clickSequence[this.clickCount].style.backgroundColor = `${this.colors[this.randomColors[this.clickCount]]["new"]}`;
@@ -100,8 +98,12 @@ class Board {
                 setTimeout(() => {
                     // Check if click sequence is not returning undefined
                     if (this.clickSequence[this.clickCount]) {
+                        // Play the sound associated with the color
+                        let sound = this.clickSequence[this.clickCount].id;
+                        this.sounds.play(this.sounds[sound]);
+
                         this.clickSequence[this.clickCount].style.backgroundColor = `${this.colors[this.randomColors[this.clickCount]]["current"]}`;
-        
+
                             //User click
                             this.clickCount += 1;
                             
@@ -117,10 +119,11 @@ class Board {
                             }, 1000);
                         }
                     }
-                }, 600);
+                }, 200);
         // ends the game
         } else {
             this.gameIsOver = true;
+            this.sounds.play(this.sounds.gameOver);
         }
     }
 
