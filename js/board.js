@@ -128,11 +128,4 @@ class Board {
         }
     }
 
-    // reset all the games values
-    reset() {
-        this.randomColors = [];
-        this.clickCount = 0;
-        this.round = 0;
-        this.generatingSequence = false;
-    }
 }

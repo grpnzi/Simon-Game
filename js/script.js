@@ -71,9 +71,11 @@ window.onload = function () {
         // This code will be executed when the user is inactive
         console.log('timeout');
         game.board.gameIsOver = true;
+        game.end();
+
         game.board.sounds.play(game.board.sounds.gameOver);
   
-    }, 100000);
+    }, 10000);
   }
 
 };

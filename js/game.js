@@ -53,6 +53,5 @@ class Game {
 
         score.innerHTML = `YOUR SCORE: ${this.board.round}`
 
-
     }
 }
