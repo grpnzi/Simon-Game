@@ -95,30 +95,30 @@ class Board {
             this.colors[this.randomColors[this.clickCount]]["new"]
             }`;
 
-                // Using setTimeout for the delay
-                setTimeout(() => {
-                    // Reset the color back to the original
-                    if (this.clickSequence[this.clickCount]) {
-                        this.clickSequence[this.clickCount].style.backgroundColor = `${
-                            this.colors[this.randomColors[this.clickCount]]["current"]
-                            }`;
+            // Using setTimeout for the delay
+            setTimeout(() => {
+                // Reset the color back to the original
+                if (this.clickSequence[this.clickCount]) {
+                    this.clickSequence[this.clickCount].style.backgroundColor = `${
+                    his.colors[this.randomColors[this.clickCount]]["current"]
+                    }`;
         
-                            //User click
-                            this.clickCount += 1;
+                    //User click
+                    this.clickCount += 1;
                             
-                            //Next level if number of valid clicks == round
-                            if (this.clickCount == this.round) {
-                                this.clickCount = 0;
-                                this.clickSequence = []
+                    //Next level if number of valid clicks == round
+                    if (this.clickCount == this.round) {
+                        this.clickCount = 0;
+                        this.clickSequence = []
         
-                                // Using setTimeout for the delay before starting the next round
-                            setTimeout(() => {
-                                this.sequenceGenerator();
-                                this.sounds.play(this.sounds.success);
-                            }, 1000);
-                        }
+                        // Using setTimeout for the delay before starting the next round
+                        setTimeout(() => {
+                            this.sequenceGenerator();
+                            this.sounds.play(this.sounds.success);
+                        }, 1000);
                     }
-                }, 500);
+                }
+            }, 500);
 
         } else {
             this.gameIsOver = true;
