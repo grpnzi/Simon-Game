@@ -90,6 +90,8 @@ window.onload = function () {
     if (effectHard.getAttribute("class") === "effect") {
       hardButton.classList.add("non-effect");
       hardButton.classList.remove("effect");
+      easyButton.classList.remove("non-effect")
+      easyButton.classList.add("effect")
     } else {
       hardButton.classList.add("effect");
       hardButton.classList.remove("non-effect");
@@ -100,6 +102,8 @@ window.onload = function () {
     if (effectEasy.getAttribute("class") === "effect") {
       easyButton.classList.add("non-effect");
       easyButton.classList.remove("effect");
+      hardButton.classList.remove("non-effect")
+      hardButton.classList.add("effect")
 
     } else {
       easyButton.classList.add("effect");

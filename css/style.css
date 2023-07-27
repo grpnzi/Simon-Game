@@ -11,7 +11,6 @@ h1 {
 
 body {
     background-color: #c789cd;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: bolder;
 }
 
@@ -54,43 +53,9 @@ body {
     align-content: space-around;
 }
 
-/* #easy-button {
-    background-color: rgb(255, 0, 200);
-    height: 4em;
-    width: 4em;
-    border-radius: 2em;
-    font-size: 0.8em;
-    font-weight: bolder;
-    border: black solid 2px;
-}
-
-#hard-button {
-    background-color: rgb(0, 237, 63);
-    height: 4em;
-    width: 4em;
-    border-radius: 2em;
-    font-size: 0.8em;
-    font-weight: bolder;
-    border: black solid 2px;
-} */
-
 #result {
     font-size: 3.5em;
 }
-
-/* .start-button {
-    position: absolute;
-    background-color: rgb(0, 255, 238);
-    height: 4em;
-    width: 30em;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 2em;
-    font-size: 1em;
-    font-weight: bolder;
-    border: black solid 2px;
-} */
 
 #game-screen {
     position: absolute;
@@ -202,6 +167,7 @@ body {
       height: 35em;
       width: 35em;
     }
+
 }
 
 /* BUTTON EFECTS (start button)
@@ -214,16 +180,14 @@ https://uiverse.io/Nawsome/tiny-chipmunk-51 */
     display: flex;
     justify-content: space-around;
     top: 20px;
-    left: 20px;
 }
   
 .buttons button {
     height: 4em;
-    width: 30em;
+    width: 25em;
     top: 40%;
-    left: 15%;
+    left: 25%;
     background-color: white;
-    margin: 20px;
     color: #568fa6;
     position: absolute;
     overflow: hidden;
