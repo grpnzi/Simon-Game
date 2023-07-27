@@ -3,14 +3,16 @@ window.onload = function () {
   console.log('SCRIPT JS IS WORKING');
   const startButton = document.getElementsByClassName('start-button');
   const startButtonArray = Array.from(startButton);
+
   const easyButton = document.getElementById("easy-button");
   const hardButton = document.getElementById("hard-button");
   const effectArray = document.getElementsByClassName("effect")
-  const effectEasy = effectArray[0];
   const effectDifficult = effectArray[1];
+  
   const colorPart = document.getElementsByClassName("color-part");
   const colorPartArray = Array.from(colorPart);
-  const difficult = {easy: 500, hard: 150};
+
+  const difficult = {easy: 600, hard: 150};
 
   let inactivityTimeout;
   let modeSet;
@@ -82,6 +84,7 @@ window.onload = function () {
       }, 90000);
   }
 
+  // change the class of the difficult buttons when they are pressed
   function updateButtonClasses() {
     if (effectDifficult.getAttribute("class") === "effect") {
       hardButton.classList.add("non-effect");

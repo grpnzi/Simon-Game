@@ -89,6 +89,7 @@ class Board {
 
         if (this.generatingSequence || this.clickCount >= this.clickSequence.length) return false;
 
+        // If the color pressed match with the color it has to be
         if (this.clickSequence[this.clickCount].id == this.randomColors[this.clickCount]) {
 
             //Color blick effect on click
@@ -117,7 +118,7 @@ class Board {
                             setTimeout(() => {
                                 this.sequenceGenerator();
                                 this.sounds.play(this.sounds.success);
-                            }, 1000);
+                            }, 1200);
                         }
                     }
                 }, 200);

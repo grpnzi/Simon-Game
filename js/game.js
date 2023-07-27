@@ -12,6 +12,7 @@ class Game {
     }
 
     start() {
+        // Hide the end screen
         this.endScreen.style.display = "none";
         // Hide the starter screen
         this.startScreen.style.display = "none";
@@ -33,6 +34,7 @@ class Game {
  
     }
 
+    // Things to be updated while the gameLoop is running
     update() {
         // console.log('Update method');
         this.board.clickScanner();
@@ -43,14 +45,15 @@ class Game {
 
     }
 
+    // Function to end the game
     end() {
         console.log("end game");
         const score = document.getElementById("score");
-
+        // Hide the game screen
         this.gameScreen.style.display = "none";
         // Display the starter screen
         this.endScreen.style.display = "block";
-
+        // Show the score
         score.innerHTML = `YOUR SCORE: ${this.board.round}`
 
     }
