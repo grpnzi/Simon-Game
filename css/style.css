@@ -390,6 +390,27 @@ https://uiverse.io/Nawsome/tiny-chipmunk-51 */
 /* DIFFICULT LEVEL SELECTION BUTTONS 
 https://uiverse.io/glisovic01/purple-shrimp-29 */
 
+.non-effect {
+    display: inline-block;
+    font-family: sans-serif;
+    height: 4em;
+    width: 8em;
+    font-weight: 600;
+    font-size: 10px;
+    color: #fff;
+    margin: 1rem auto;
+    border-radius: 30em;
+    border-style: none;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-color: rgb(0, 0, 0);
+    box-shadow: 1px 1px 12px #000000;
+}
+
 .effect {
     display: inline-block;
     font-family: sans-serif;

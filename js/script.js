@@ -5,6 +5,9 @@ window.onload = function () {
   const startButtonArray = Array.from(startButton);
   const easyButton = document.getElementById("easy-button");
   const hardButton = document.getElementById("hard-button");
+  const effectArray = document.getElementsByClassName("effect")
+  const effectEasy = effectArray[0];
+  const effectDifficult = effectArray[1];
   const colorPart = document.getElementsByClassName("color-part");
   const colorPartArray = Array.from(colorPart);
   const difficult = {easy: 500, hard: 150};
@@ -24,12 +27,14 @@ window.onload = function () {
   // set the difficult level to easy
   easyButton.addEventListener("click", function () {
     console.log("easy mode");
+    updateButtonClasses()
     modeSet = difficult.easy;
   });
 
   // set the difficult level to hard
   hardButton.addEventListener("click", function () {
     console.log("hard mode");
+    updateButtonClasses()
     modeSet = difficult.hard;
   });
   
@@ -66,16 +71,28 @@ window.onload = function () {
     // Clear the previous timeout (if any)
     clearTimeout(inactivityTimeout);
 
-    // Set a new timeout of 10 seconds
-    inactivityTimeout = setTimeout(function () {
-        // This code will be executed when the user is inactive
-        console.log('timeout');
-        game.board.gameIsOver = true;
-        game.end();
+      inactivityTimeout = setTimeout(function () {
+          // This code will be executed when the user is inactive
+          console.log('timeout');
+          game.board.gameIsOver = true;
+          game.end();
 
-        game.board.sounds.play(game.board.sounds.gameOver);
-  
-    }, 10000);
+          game.board.sounds.play(game.board.sounds.gameOver);
+    
+      }, 90000);
   }
 
+  function updateButtonClasses() {
+    if (effectDifficult.getAttribute("class") === "effect") {
+      hardButton.classList.add("non-effect");
+      hardButton.classList.remove("effect");
+      easyButton.classList.remove("non-effect")
+      easyButton.classList.add("effect")
+    } else {
+      easyButton.classList.add("non-effect");
+      easyButton.classList.remove("effect");
+      hardButton.classList.remove("non-effect")
+      hardButton.classList.add("effect")
+    }
+  }
 };
