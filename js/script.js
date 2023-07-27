@@ -7,7 +7,8 @@ window.onload = function () {
   const easyButton = document.getElementById("easy-button");
   const hardButton = document.getElementById("hard-button");
   const effectArray = document.getElementsByClassName("effect")
-  const effectDifficult = effectArray[1];
+  const effectHard = effectArray[1];
+  const effectEasy = effectArray[0];
   
   const colorPart = document.getElementsByClassName("color-part");
   const colorPartArray = Array.from(colorPart);
@@ -29,14 +30,14 @@ window.onload = function () {
   // set the difficult level to easy
   easyButton.addEventListener("click", function () {
     console.log("easy mode");
-    updateButtonClasses()
+    updateButtonClassesEasy()
     modeSet = difficult.easy;
   });
 
   // set the difficult level to hard
   hardButton.addEventListener("click", function () {
     console.log("hard mode");
-    updateButtonClasses()
+    updateButtonClassesHard()
     modeSet = difficult.hard;
   });
   
@@ -85,17 +86,25 @@ window.onload = function () {
   }
 
   // change the class of the difficult buttons when they are pressed
-  function updateButtonClasses() {
-    if (effectDifficult.getAttribute("class") === "effect") {
+  function updateButtonClassesHard() {
+    if (effectHard.getAttribute("class") === "effect") {
       hardButton.classList.add("non-effect");
       hardButton.classList.remove("effect");
-      easyButton.classList.remove("non-effect")
-      easyButton.classList.add("effect")
     } else {
+      hardButton.classList.add("effect");
+      hardButton.classList.remove("non-effect");
+    }
+  }
+
+  function updateButtonClassesEasy() {
+    if (effectEasy.getAttribute("class") === "effect") {
       easyButton.classList.add("non-effect");
       easyButton.classList.remove("effect");
-      hardButton.classList.remove("non-effect")
-      hardButton.classList.add("effect")
+
+    } else {
+      easyButton.classList.add("effect");
+      easyButton.classList.remove("non-effect");
+ 
     }
   }
 };
